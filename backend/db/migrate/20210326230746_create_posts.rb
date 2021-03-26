@@ -4,6 +4,7 @@ class CreatePosts < ActiveRecord::Migration[6.0]
       t.string :name
       t.string :description
       t.integer :date
+      t.integer :content_id
 
       t.timestamps
     end
