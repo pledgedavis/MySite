@@ -3,11 +3,13 @@ class ContentsController < ApplicationController
 
   # GET /contents or /contents.json
   def index
-    @contents = Content.all
+    contents = Content.all
+    render json: contents
   end
 
   # GET /contents/1 or /contents/1.json
   def show
+    
   end
 
   # GET /contents/new
@@ -22,21 +24,14 @@ class ContentsController < ApplicationController
   # POST /contents or /contents.json
   def create
     @content = Content.new(content_params)
-
-    respond_to do |format|
       if @content.save
-        format.html { redirect_to @content, notice: "Content was successfully created." }
-        format.json { render :show, status: :created, location: @content }
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @content.errors, status: :unprocessable_entity }
       end
     end
   end
 
   # PATCH/PUT /contents/1 or /contents/1.json
   def update
-    respond_to do |format|
       if @content.update(content_params)
         format.html { redirect_to @content, notice: "Content was successfully updated." }
         format.json { render :show, status: :ok, location: @content }
