@@ -25,7 +25,9 @@ class ContentsController < ApplicationController
   def create
     @content = Content.new(content_params)
       if @content.save
+        render json: @content, status: :created, location: @content
       else
+        render json: @content.errors, status: :unprocessable_entity
       end
     end
   end
@@ -33,12 +35,10 @@ class ContentsController < ApplicationController
   # PATCH/PUT /contents/1 or /contents/1.json
   def update
       if @content.update(content_params)
-        format.html { redirect_to @content, notice: "Content was successfully updated." }
-        format.json { render :show, status: :ok, location: @content }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @content.errors, status: :unprocessable_entity }
-      end
+        render json: @content 
+          else
+            render json: @content.errors, status: :unprocessable_entity
+          end
     end
   end
 
