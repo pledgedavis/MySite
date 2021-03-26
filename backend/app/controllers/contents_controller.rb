@@ -9,7 +9,7 @@ class ContentsController < ApplicationController
 
   # GET /contents/1 or /contents/1.json
   def show
-
+    render json: @content
   end
 
   # GET /contents/new
