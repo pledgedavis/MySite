@@ -1,5 +1,5 @@
 class ContentsController < ApplicationController
-  before_action :set_content, only: %i[ show edit update destroy ]
+  before_action :set_content, only: [ :show, :edit, :update, :destroy ]
 
   # GET /contents or /contents.json
   def index
@@ -9,7 +9,7 @@ class ContentsController < ApplicationController
 
   # GET /contents/1 or /contents/1.json
   def show
-    
+
   end
 
   # GET /contents/new
@@ -24,25 +24,23 @@ class ContentsController < ApplicationController
   # POST /contents or /contents.json
   def create
     @content = Content.new(content_params)
-      if @content.save
-        render json: @content, status: :created, location: @content
-      else
-        render json: @content.errors, status: :unprocessable_entity
-      end
+    if @content.save
+      render json: @content, status: :created, location: @content
+     else
+       render json: @content.errors, status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /contents/1 or /contents/1.json
   def update
-      if @content.update(content_params)
-        render json: @content 
-          else
-            render json: @content.errors, status: :unprocessable_entity
-          end
+   if @content.update(content_params)
+     render json: @content 
+    else
+     render json: @content.errors, status: :unprocessable_entity
     end
   end
 
-  # DELETE /contents/1 or /contents/1.json
+  
   def destroy
     @content.destroy
     respond_to do |format|
@@ -52,13 +50,12 @@ class ContentsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+   
     def set_content
       @content = Content.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
     def content_params
-      params.fetch(:content, {})
+      params.require(:content).permit(:id, :name)
     end
 end
